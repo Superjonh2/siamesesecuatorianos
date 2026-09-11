@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080E12">
+
+<!-- ===== EDITA AQUÍ: título de la pestaña ===== -->
+<title>Siameses</title>
+<meta name="description" content="Todos nuestros enlaces en un solo sitio.">
+
+<meta property="og:title" content="Siameses">
+<meta property="og:description" content="Todos nuestros enlaces en un solo sitio.">
+<meta property="og:image" content="foto.jpg">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* colores sacados de la propia foto */
+    --arena:#DCE6EF;
+    --arena-suave:rgba(220,230,239,.6);
+    --cacao:#080E12;
+    --cacao-claro:#121A20;
+    --ladrillo:#E8952F;
+    --vidrio:rgba(220,230,239,.07);
+    --linea:rgba(220,230,239,.16);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  body{
+    background:var(--cacao);
+    background-image:linear-gradient(175deg,#131C22 0%,#080E12 58%,#05090C 100%);
+    background-attachment:fixed;
+    color:var(--arena);
+    font-family:'Inter',system-ui,sans-serif;
+    min-height:100dvh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- FONDO: luz cálida difusa ---------- */
+  .fondo{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background:
+      radial-gradient(115% 62% at 80% -6%, rgba(178,208,233,.22) 0%, transparent 64%),
+      radial-gradient(100% 62% at 6% 104%, rgba(232,149,47,.22) 0%, transparent 70%),
+      linear-gradient(175deg,#131C22 0%,#080E12 58%,#05090C 100%);
+  }
+  .grano{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:.09;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .pagina{
+    position:relative;
+    z-index:2;
+    max-width:480px;
+    margin:0 auto;
+    min-height:100dvh;
+    padding:18px 20px 26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    justify-content:safe center;
+  }
+
+  /* ---------- LA FOTO ---------- */
+  /* la propia foto, muy desenfocada, hace de luz ambiente detrás de la tarjeta */
+  .marco::before{
+    content:'';
+    position:absolute;
+    inset:-7% -5% -16%;
+    background:url('foto.jpg') center/cover no-repeat;
+    filter:blur(52px) saturate(2.4) brightness(1.55);
+    opacity:.62;
+    z-index:-1;
+    border-radius:40px;
+  }
+
+  .marco{
+    position:relative;
+    border-radius:26px;
+    border:1px solid var(--linea);
+    box-shadow:0 34px 70px -28px rgba(0,0,0,.9);
+  }
+  /* filo de luz en el borde de arriba, como un cristal */
+  .marco::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:26px;
+    pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0) 22%);
+    -webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    padding:1px;
+  }
+  .marco img{
+    display:block;
+    border-radius:25px;
+    width:100%;
+    aspect-ratio:4 / 3;
+    object-fit:cover;
+    object-position:50% 28%;
+  }
+
+  /* etiqueta de sitio, discreta, abajo a la izquierda */
+  .sitio{
+    position:absolute;
+    z-index:2;
+    left:14px;
+    bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 13px;
+    border-radius:999px;
+    background:rgba(8,14,18,.52);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4);
+    backdrop-filter:blur(14px) saturate(1.4);
+    border:1px solid rgba(220,230,239,.2);
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:.01em;
+    color:var(--arena);
+  }
+  .punto{
+    width:7px;height:7px;border-radius:50%;
+    background:#FF3B30;
+    box-shadow:0 0 0 3px rgba(255,59,48,.3), 0 0 10px rgba(255,59,48,.9);
+    animation:late 2s ease-in-out infinite;
+  }
+  @keyframes late{
+    0%,100%{box-shadow:0 0 0 3px rgba(255,59,48,.3), 0 0 10px rgba(255,59,48,.9)}
+    50%{box-shadow:0 0 0 6px rgba(255,59,48,0), 0 0 14px rgba(255,59,48,.5)}
+  }
+
+  /* ---------- TEXTO ---------- */
+  .nombre{
+    margin:20px 2px 0;
+    font-family:'Bricolage Grotesque','Inter',sans-serif;
+    font-weight:800;
+    font-size:min(7.9vw,38px);
+    white-space:nowrap;
+    line-height:1.02;
+    letter-spacing:-.035em;
+  }
+
+  .frase{
+    margin:12px 2px 0;
+    max-width:31ch;
+    font-size:16px;
+    line-height:1.5;
+    color:var(--arena-suave);
+  }
+
+  /* ---------- ENLACES ---------- */
+  .enlaces{
+    margin-top:30px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .enlace{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:13px 15px;
+    border-radius:18px;
+    background:var(--vidrio);
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--linea);
+    color:var(--arena);
+    text-decoration:none;
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:-.01em;
+    transition:transform .16s ease, background .16s ease, border-color .16s ease;
+  }
+  .enlace:active{transform:scale(.978)}
+  .enlace:focus-visible{outline:2px solid var(--arena);outline-offset:3px}
+
+  /* el cuadradito del icono */
+  .icono{
+    width:36px;height:36px;
+    flex:none;
+    display:grid;
+    place-items:center;
+    border-radius:11px;
+    background:rgba(220,230,239,.09);
+    border:1px solid var(--linea);
+  }
+  .icono svg{width:19px;height:19px}
+
+  .flecha{margin-left:auto;opacity:.4;width:17px;height:17px;flex:none}
+
+  /* el color de cada plataforma, solo en su icono */
+  .tt .icono{background:rgba(254,44,85,.15);border-color:rgba(254,44,85,.3);color:#FF5F7E}
+  .tw .icono{background:rgba(145,70,255,.16);border-color:rgba(145,70,255,.3);color:#B98CFF}
+  .ki .icono{background:rgba(83,252,24,.13);border-color:rgba(83,252,24,.26);color:#7DF54E}
+  .fb .icono{background:rgba(24,119,242,.16);border-color:rgba(24,119,242,.32);color:#6BAAFA}
+
+  /* el único elemento fuerte de la página */
+  .enlace.principal{
+    margin-bottom:6px;
+    padding:16px;
+  }
+  /* la camarita, con los colores de Instagram */
+  .enlace.principal .icono{
+    background:linear-gradient(128deg,#FEDA75 0%,#FA7E1E 28%,#D62976 58%,#962FBF 80%,#4F5BD5 100%);
+    border-color:rgba(255,255,255,.26);
+    color:#fff;
+    box-shadow:0 6px 16px -8px rgba(214,41,118,.8);
+  }
+  .enlace .sub{
+    display:block;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--arena-suave);
+    margin-top:1px;
+  }
+
+  .pie{
+    margin-top:20px;
+    font-size:12.5px;
+    color:rgba(220,230,239,.42);
+    letter-spacing:.01em;
+  }
+  .pie a{color:inherit}
+
+  /* ---------- una sola entrada, escalonada ---------- */
+  .sube{animation:sube .8s cubic-bezier(.2,.75,.25,1) both}
+  .d1{animation-delay:.05s}
+  .d2{animation-delay:.14s}
+  .d3{animation-delay:.2s}
+  .d4{animation-delay:.26s}
+  .d5{animation-delay:.32s}
+  .d6{animation-delay:.38s}
+  .d7{animation-delay:.44s}
+  .d8{animation-delay:.5s}
+  .d9{animation-delay:.56s}
+  @keyframes sube{
+    from{opacity:0;transform:translateY(14px)}
+    to{opacity:1;transform:none}
+  }
+
+  /* ---------- TABLET ---------- */
+  @media (min-width:700px){
+    .pagina{max-width:520px;padding:40px 24px}
+    .nombre{font-size:40px}
+    .frase{font-size:17px}
+  }
+
+  /* ---------- ORDENADOR: foto a un lado, enlaces al otro ---------- */
+  @media (min-width:1000px){
+    .pagina{
+      max-width:980px;
+      padding:56px 40px;
+      flex-direction:row;
+      align-items:center;
+      gap:60px;
+    }
+    .marco{flex:0 0 400px}
+    .col{flex:1;min-width:0}
+    .nombre{margin:0;font-size:40px}
+    .frase{margin:14px 0 0;font-size:17px;max-width:34ch}
+    .enlaces{margin-top:28px}
+    .pie{margin-top:22px}
+    .enlace{padding:15px 18px}
+    .enlace.principal{padding:17px 18px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .sube{animation:none}
+    .punto{animation:none}
+    .enlace{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo"></div>
+<div class="grano"></div>
+
+<main class="pagina">
+
+  <div class="marco sube d1">
+    <img src="foto.jpg" alt="Foto de perfil">
+    <!-- ===== EDITA AQUÍ: la etiqueta sobre la foto ===== -->
+    <span class="sitio"><span class="punto"></span>Siameses</span>
+  </div>
+
+  <div class="col">
+
+  <!-- ===== EDITA AQUÍ: nombre ===== -->
+  <h1 class="nombre sube d2">Siameses del Ecuador</h1>
+
+  <!-- ===== EDITA AQUÍ: la frase de ellos cuando te acuerdes ===== -->
+  <p class="frase sube d3">Recuerda: la discapacidad no es impedimento para ser felices.</p>
+
+  <nav class="enlaces">
+
+    <a class="enlace principal sube d4" href="https://www.instagram.com/siamesesecuador_08official" target="_blank" rel="noopener">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/>
+          <circle cx="12" cy="12" r="4.1"/>
+          <circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span>Instagram<span class="sub">Nuestro día a día</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+
+    <a class="enlace ki sube d5" href="https://kick.com/tu_usuario" target="_blank" rel="noopener">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M17.5 4 10 12l7.5 8"/></svg>
+      </span>
+      <span>Kick<span class="sub">Directos</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+
+    <a class="enlace tt sube d6" href="https://www.tiktok.com/@siameses.del.ecua" target="_blank" rel="noopener">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.83-2.48v-3.2a5.79 5.79 0 1 0 4.92 5.72V9.01a7.35 7.35 0 0 0 4.29 1.38V7.3a4.28 4.28 0 0 1-3.23-1.48Z"/></svg>
+      </span>
+      <span>TikTok<span class="sub">Vídeos nuevos</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+
+    <!-- ===== NUEVOS ENLACES: copia este bloque, quita los signos de comentario y cambia href, icono y texto =====
+    <a class="enlace sube d5" href="https://www.tiktok.com/@tu_usuario" target="_blank" rel="noopener">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M15 4v9.4a3.6 3.6 0 1 1-3-3.55"/><path d="M15 4c.4 2.2 1.9 3.6 4 3.8"/></svg>
+      </span>
+      <span>TikTok<span class="sub">Vídeos nuevos</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+    -->
+
+    <!-- ===== EDITA AQUÍ: cambia tu_usuario por el usuario real ===== -->
+    <a class="enlace tw sube d7" href="https://www.twitch.tv/tu_usuario" target="_blank" rel="noopener">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.3 3 3 6.2v12.3h4.2V21h2.3l2.4-2.5h3.4L21 14.2V3H4.3Zm1.6 1.6h13.5v8.8l-2.6 2.6h-4.2l-2.4 2.4v-2.4H5.9V4.6Zm4.6 2.4v4.8h1.6V7h-1.6Zm4.2 0v4.8h1.6V7h-1.6Z"/></svg>
+      </span>
+      <span>Twitch<span class="sub">También en directo</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+
+    <!-- ===== EDITA AQUÍ: cambia tu_usuario por el usuario real ===== -->
+    <a class="enlace fb sube d8" href="https://www.facebook.com/share/19Pdjn3xXv/" target="_blank" rel="noopener">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.6 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.28-.13-2.44-.13-2.42 0-4.08 1.48-4.08 4.2V9.9H7.5V13h2.78v8h3.32Z"/></svg>
+      </span>
+      <span>Facebook<span class="sub">Nuestra página</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+
+    <a class="enlace sube d8" href="mailto:siamesesdelecuador2group@gmail.com">
+      <span class="icono">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+          <rect x="2.5" y="5" width="19" height="14" rx="3"/>
+          <path d="M3.2 6.4 12 12.8l8.8-6.4"/>
+        </svg>
+      </span>
+      <span>Colaboraciones<span class="sub">Marcas y prensa</span></span>
+      <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+
+  </nav>
+
+  <p class="pie sube d5">siamesesdelecuador2group@gmail.com</p>
+
+</main>
+
+</body>
+</html>
